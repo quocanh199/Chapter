@@ -27,6 +27,7 @@ void SinhVien::ThemHoSo()
     cin.ignore();
     cout<<"Ho ten: ";
     getline(cin,HoTen);
+    ReName();
     
 //    cin.ignore();
     cout<<"Ma sinh vien: ";
@@ -37,7 +38,7 @@ void SinhVien::ThemHoSo()
     getline(cin,MaLop);
 
 //    cin.ignore();
-    cout<<"Ngay sinh (thang,ngay,nam): ";
+    cout<<"Ngay sinh:\n";
     NgaySinh.userInput();
 
     cin.ignore();
@@ -59,7 +60,7 @@ void SinhVien::ThemHoSo()
     if (Confirm == 'y'){
         fstream f;
         f.open("SinhVien.txt",ios::app);
-        f<<HoTen<<"\n"<<MaLop<<" "<<MaSV<<" "<<NgaySinh.asString()<<" "<<DiemTB<<endl;
+        f<<"\n"<<HoTen<<'|'<<MaLop<<'|'<<MaSV<<'|'<<NgaySinh.asString()<<'|'<<DiemTB;
 
         f.close();
     }
@@ -117,7 +118,15 @@ float SinhVien::getDiemTB()
 string SinhVien::toString_SinhVien()
 {
 	ostringstream _SinhVien;
-	_SinhVien << MaLop << "|" << MaSV  << "|" << HoTen << "|" << NgaySinh.asString() << "|" << DiemTB;
+	_SinhVien << HoTen << "|" << MaLop  << "|" << MaSV << "|" << NgaySinh.asString() << "|" << DiemTB;
 
 	return _SinhVien.str();
+}
+
+void SinhVien::ReName() {
+    HoTen[0] = toupper(HoTen[0]);
+    for (int i=1; i< HoTen.length(); i++){
+        if (HoTen[i] == ' ')
+            HoTen[i+1] = toupper(HoTen[i+1]);
+    }
 }

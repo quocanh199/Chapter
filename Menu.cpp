@@ -95,22 +95,12 @@ void Menu::hienThi()
 void Menu::InDanhSach()
 {
     char Confirm;
-//
-//    fstream f;
-//    f.open("SinhVien.txt", ios::in);
-//
-//    string data, line;
-//    while (!f.eof()) {
-//        data += "\n";
-//        getline(f, line);
-//        data += line;
-//    }
-//    f.close();
-//    cout << data << endl;
 
     ReadFile();
-    DSSV.front().getHoTen();
-    cout<<"Lam moi danh sach? (y/n): ";
+    for (int i=0;i<DSSV.size();i++){
+        cout<<DSSV.at(i).toString_SinhVien();
+    }
+    cout<<"\nLam moi danh sach? (y/n): ";
     cin>>Confirm;
     if (Confirm == 'y')
         newDanhSach();
@@ -124,34 +114,37 @@ void Menu::newDanhSach() {
 
 void Menu::ReadFile() {
     fstream f;
-    string MaLop,HoTen;
+    string MaLop,HoTen,MaSVbuff;
     int MaSV,month,day,year;
     float DiemTB;
     Date NgaySinh;
 
     f.open("SinhVien.txt",ios::in);
-//    while (!f.eof()){
-//
-//        getline(f,HoTen);
-//        f>>MaLop;
-//        f.ignore(1);
-//        cout<<"Ma Lop: "<<MaLop;
-//
-//        f>>MaSV;
-//        f.ignore(1);
-//
-//        f>>month;
-//        f.ignore(1);
-//        f>>day;
-//        f.ignore(1);
-//        f>>year;
-//        f.ignore(1);
-//        NgaySinh.setDate(month,day,year);
-//
-//        f>>DiemTB;
-//        DSSV.push_back(SinhVien(MaLop,MaSV,NgaySinh,HoTen,DiemTB));
-//    }
-    cout<<f.eof();
+    while (!f.eof()){
+
+        getline(f,HoTen,'|');
+
+        getline(f,MaLop,'|');
+
+
+        getline(f,MaSVbuff,'|');
+        MaSV = stoi(MaSVbuff);
+
+
+        f>>month;
+        f.seekg(1,ios::cur);
+        f>>day;
+        f.seekg(1,ios::cur);
+        f>>year;
+        f.seekg(1,ios::cur);
+        NgaySinh.setDate(month,day,year);
+//        cout<<NgaySinh.asString();
+
+        f>>DiemTB;
+//        cout<<DiemTB<<endl;
+        DSSV.push_back(SinhVien(MaLop,MaSV,NgaySinh,HoTen,DiemTB));
+    }
+//    cout<<f.eof();
     f.close();
 }
 

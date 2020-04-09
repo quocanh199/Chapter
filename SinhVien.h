@@ -36,6 +36,7 @@ class SinhVien
         float getDiemTB();
 
         string toString_SinhVien();
+        void ReName();
 };
 
 #endif //SINHVIEN_H

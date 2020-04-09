@@ -11,7 +11,7 @@ class Date
         Date();
         Date(int month, int day, int year);
         void setDate(void);
-        bool setDate(int month, int day, int year);
+        void setDate(int month, int day, int year);
         int getMonth() const;
         int getDay() const;
         int getYear() const;
@@ -21,5 +21,6 @@ class Date
         const string& asString() const;
         void print(void) const;
         void userInput();
+        bool ValidDate(int month,int day,int year);
 };
 #endif //DATE_H

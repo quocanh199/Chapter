@@ -4,6 +4,6 @@ using namespace std;
 
 int main() {
 	Menu _menu;
-	_menu.ReadFile();
+	_menu.hienThi();
 	return 0;
 }

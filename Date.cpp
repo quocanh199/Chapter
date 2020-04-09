@@ -14,7 +14,7 @@ Date::Date()
 }
 Date::Date(int month,int day,int year)
 {
-    if (!setDate(month,day,year))
+    if (!ValidDate(month,day,year))
         this->month = this->day = this->year = 1;
 }
 void Date::setDate()
@@ -29,36 +29,46 @@ void Date::setDate()
     month = dur->tm_mon + 1;
     year = dur->tm_year + 1900;
 }
-bool Date::setDate(int mn,int da,int yr)
-{
-    if ( mn < 1 || mn > 12) return false;
-    if ( da < 1 || da > 31) return false;
-    switch (mn)
-    {
-        case 2: if (Date::isLeapYear(yr))
-                {
-                    if ( da > 29 )
-                        return false;
-                }
-                else if ( da > 28 )
+void Date::setDate(int mn,int da,int yr){
+    month = mn;
+    day = da;
+    year = yr;
+}
+bool Date::ValidDate(int month, int day, int year) {
+    if (month < 1 || month > 12) return false;
+    if (day < 1 || day > 31) return false;
+    switch (month) {
+        case 2:
+            if (Date::isLeapYear(year)) {
+                if (day > 29)
                     return false;
-                break;
+            } else if (day > 28)
+                return false;
+            break;
         case 4:
         case 6:
         case 9:
         case 11:
-                    if ( da > 30 )  return false;
+            if (day > 30)
+                return false;
     }
-    month = mn;
-    day = da;
-    year = yr;
     return true;
 }
-void Date::userInput()
-{
+void Date::userInput(){
     int month,day,year;
-    cin>>month>>day>>year;
-    setDate(month,day,year);
+
+    cout<<"month: ";
+    cin>>month;
+    cout<<"day: ";
+    cin>>day;
+    cout<<"year: ";
+    cin>>year;
+    if (ValidDate(month,day,year))
+        setDate(month,day,year);
+    else{
+        cout<<"Invalid date! Please re-input date: "<<endl;
+        userInput();
+    }
 }
 void Date::print(void) const
 {
@@ -88,5 +98,7 @@ int Date::getYear() const
 	return this->year;
 }
 bool Date::isLeapYear(int year) {
-    return true;
+    if (year % 4 == 0)
+        return true;
+    return false;
 }
