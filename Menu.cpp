@@ -37,12 +37,6 @@ void Menu::hienThi()
 	while (stat == true)
 	{
         cin >> choiceMenu;
-//	do {
-//		cin >> choiceMenu;
-//		if (choiceMenu < 1 || choiceMenu >6)
-//			cout << nhapsai;
-//	} while (choiceMenu < 1 || choiceMenu >6);
-
         switch (choiceMenu) {
             case 1:
                 sinhVienTemp.ThemHoSo();
@@ -152,14 +146,13 @@ int Menu::chonKhoa()
 {
 	int keyType;
 	bool check = false;
-	
+
 	cout << "\nChon loai khoa: " << endl
 		 << "1. Ma sinh vien"	 << endl
 		 << "2. Ho ten"			 << endl
 		 << "3. Ngay sinh"		 << endl
-		 << "4. Diem trung binh" << endl;
-	if (choiceMenu == 4)
-		cout << "5. Ma lop" << endl;
+		 << "4. Diem trung binh" << endl
+		 << "5. Ma lop"          << endl;
 	
 	cout << "Chon: ";
 	do {
@@ -170,15 +163,9 @@ int Menu::chonKhoa()
 			case 2:
 			case 3:
 			case 4:
-				check = true;
-				return keyType;
-				break;
 			case 5:
-				if (choiceMenu == 4)
-					return keyType;
-//				else
-//					cout << nhapsai;
-//				break;
+                check = true;
+                return keyType;
 			default:
 				cout << nhapsai;
 				break;
@@ -191,12 +178,27 @@ void Menu::sapXep()
 	int keyType = chonKhoa();
 	cout << "\nDa chon loai: " << keyType << endl;
 	int algoType = algoSapXep();
-	// chung ta se goi thuat toan o day voi tham so keyType va algoType
-	cout << baotri << endl;
+	switch (algoType){
+	    case 1:
+	        SelectionSort(keyType);
+	        break;
+	    case 2:
+	        InsertSort(keyType);
+	        break;
+	    case 3:
+	        QuickSort(keyType,0,DSSV.size()-1);
+	        break;
+	    case 4:
+	        MergeSort(keyType, 0, DSSV.size()-1);
+	        break;
+	}
+	for (int i=0; i<DSSV.size(); i++)
+	    cout<<DSSV.at(i).toString_SinhVien()<<endl;
+//	cout << baotri << endl;
 }
 int Menu::algoSapXep()
 {
-	int algoType;				// co the dung choiceMenu de tiet kiem bo nho nhung se de nham lan
+	int algoType;
 	cout << "\nChon thuat toan sap xep: " << endl
 		 << "1. Selection sort" 		  << endl
 		 << "2. Insert sort"			  << endl
@@ -210,24 +212,256 @@ int Menu::algoSapXep()
 			case 1:
 				cout << "Selection sort dang chay!" << endl;
 				return algoType;
-				break;
-			case2:
+			case 2:
 				cout << "Insert sort dang chay!" << endl;
 				return algoType;
-				break;
 			case 3:
 				cout << "Quick sort dang chay!" << endl;
 				return algoType;
-				break;
 			case 4:
 				cout << "Merge sort dang chay!" << endl;
 				return algoType;
-				break;
 			default:
 				cout << nhapsai;
 				break;
 		}
 	} while (algoType < 1 || algoType > 4);
+}
+
+bool Menu::Comparison(int a, int b) {
+    if (a<b)
+        return false;
+    return true;
+}
+bool Menu::Comparison(float a, float b) {
+    if (a<b)
+        return false;
+    return true;
+}
+bool Menu::Comparison(string a, string b) {
+    if (a.compare(b) < 0)
+        return false;
+    return true;
+}
+
+void Menu::SelectionSort(int keyType) {
+    int i,j,min_idx;
+    for(i = 0; i<DSSV.size()-1;i++){
+        min_idx=i;
+        for (j = i; j<DSSV.size(); j++){
+            switch(keyType){
+                case 1:
+                    if (Comparison(DSSV.at(j).getMaSV(), DSSV.at(min_idx).getMaSV()) == false)
+                        min_idx = j;
+                    break;
+                case 2:
+                    if (Comparison(DSSV.at(j).getHoTen(), DSSV.at(min_idx).getHoTen())== false)
+                        min_idx = j;
+                    break;
+                case 3:
+                    if (Comparison(DSSV.at(j).getDateString(), DSSV.at(min_idx).getDateString()) == false)
+                        min_idx = j;
+                    break;
+                case 4:
+                    if (Comparison(DSSV.at(j).getDiemTB(), DSSV.at(min_idx).getDiemTB()) == false)
+                        min_idx = j;
+                    break;
+                case 5:
+                    if (Comparison(DSSV.at(j).getMaLop(), DSSV.at(min_idx).getMaLop()) == false)
+                        min_idx = j;
+                    break;
+            }
+            swap(DSSV.at(i),DSSV.at(min_idx));
+        }
+    }
+}
+
+void Menu::InsertSort(int keyType) {
+    int i,j;
+    SinhVien key;
+    for (i = 1; i<DSSV.size();i++){
+        key = DSSV.at(i);
+        j = i-1;
+        while (j >= 0){
+            switch(keyType){
+                case 1:
+                    if (Comparison(DSSV.at(j).getMaSV(), key.getMaSV()) == true){
+                        DSSV.at(j+1) = DSSV.at(j);
+                        j--;
+                    }
+                    break;
+                case 2:
+                    if (Comparison(DSSV.at(j).getHoTen(), key.getHoTen()) == true){
+                        DSSV.at(j+1) = DSSV.at(j);
+                        j--;
+                    }
+                    break;
+                case 3:
+                    if (Comparison(DSSV.at(j).getDateString(), key.getDateString()) == true){
+                        DSSV.at(j+1) = DSSV.at(j);
+                        j--;
+                    }
+                    break;
+                case 4:
+                    if (Comparison(DSSV.at(j).getDiemTB(), key.getDiemTB()) == true){
+                        DSSV.at(j+1) = DSSV.at(j);
+                        j--;
+                    }
+                    break;
+                case 5:
+                    if (Comparison(DSSV.at(j).getMaLop(), key.getMaLop()) == true){
+                        DSSV.at(j+1) = DSSV.at(j);
+                        j--;
+                    }
+                    break;
+            }
+            DSSV.at(j+1) = key;
+        }
+    }
+}
+
+void Menu::QuickSort(int keyType,int low,int high) {
+    if (low < high){
+        int pi = Partition(keyType,low,high);
+        QuickSort(keyType,low,pi-1);
+        QuickSort(keyType,pi+1,high);
+    }
+}
+int Menu::Partition(int keyType, int low, int high) {
+    int i,j;
+    i = low - 1;
+    for(j=low; j<=high-1; j++){
+        switch(keyType) {
+            case 1:
+                if (Comparison(DSSV.at(j).getMaSV(), DSSV.at(high).getMaSV()) == false) {
+                    i++;
+                    swap(DSSV.at(j), DSSV.at(i));
+                }
+                break;
+            case 2:
+                if (Comparison(DSSV.at(j).getHoTen(), DSSV.at(high).getHoTen()) == false) {
+                    i++;
+                    swap(DSSV.at(j), DSSV.at(i));
+                }
+                break;
+            case 3:
+                if (Comparison(DSSV.at(j).getDateString(), DSSV.at(high).getDateString()) == false) {
+                    i++;
+                    swap(DSSV.at(j), DSSV.at(i));
+                }
+                break;
+            case 4:
+                if (Comparison(DSSV.at(j).getDiemTB(), DSSV.at(high).getDiemTB()) == false) {
+                    i++;
+                    swap(DSSV.at(j), DSSV.at(i));
+                }
+                break;
+            case 5:
+                if (Comparison(DSSV.at(j).getMaLop(), DSSV.at(high).getMaLop()) == false) {
+                    i++;
+                    swap(DSSV.at(j), DSSV.at(i));
+                }
+                break;
+        }
+    }
+    swap(DSSV.at(i+1), DSSV.at(high));
+    return (i+1);
+}
+
+void Menu::MergeSort(int keyType, int l, int r) {
+    if (l < r){
+        int m = l + (r-l)/2;
+
+        MergeSort(keyType, l, m);
+        MergeSort(keyType, m+1, r);
+        Merge(keyType, l, m, r);
+    }
+}
+void Menu::Merge(int keyType, int l, int m, int r) {
+    int i,j,k;
+    int n1 = m-l+1;
+    int n2 = r-m;
+    vector<SinhVien> L,R;
+    L.resize(n1);
+    R.resize(n2);
+
+    for (i=0; i<n1; i++)
+        L.at(i) = DSSV.at(l+i);
+    for (j=0; j<n2; j++)
+        R.at(i) = DSSV.at(m+1+j);
+
+    i = j = 0;
+    k = l;
+
+    while(i<n1 && j<n2){
+        switch(keyType) {
+            case 1:
+                if (Comparison(L.at(i).getMaSV(), R.at(j).getMaSV()) == false) {
+                    DSSV.at(k) = L.at(i);
+                    i++;
+                }
+                else{
+                    DSSV.at(k) = R.at(j);
+                    j++;
+                }
+                k++;
+                break;
+            case 2:
+                if (Comparison(L.at(i).getHoTen(), R.at(j).getHoTen()) == false) {
+                    DSSV.at(k) = L.at(i);
+                    i++;
+                }
+                else{
+                    DSSV.at(k) = R.at(j);
+                    j++;
+                }
+                k++;
+                break;
+            case 3:
+                if (Comparison(L.at(i).getDateString(), R.at(j).getDateString()) == false) {
+                    DSSV.at(k) = L.at(i);
+                    i++;
+                }
+                else{
+                    DSSV.at(k) = R.at(j);
+                    j++;
+                }
+                k++;
+                break;
+            case 4:
+                if (Comparison(L.at(i).getDiemTB(), R.at(j).getDiemTB()) == false) {
+                    DSSV.at(k) = L.at(i);
+                    i++;
+                }
+                else{
+                    DSSV.at(k) = R.at(j);
+                    j++;
+                }
+                k++;
+                break;
+            case 5:
+                if (Comparison(L.at(i).getMaLop(), R.at(j).getMaLop()) == false) {
+                    DSSV.at(k) = L.at(i);
+                    i++;
+                }
+                else{
+                    DSSV.at(k) = R.at(j);
+                    j++;
+                }
+                k++;
+                break;
+        }
+    }
+    while (i < n1){
+        DSSV.at(k) = L.at(i);
+        i++;
+        k++;
+    }
+    while (j < n2){
+        DSSV.at(k) = R.at(j);
+        j++;
+        k++;
+    }
 }
 
 void Menu::timKiem()
@@ -287,5 +521,5 @@ void Menu::thoat()
 {
 	cout << "Chuong trinh ket thuc. Hen gap lai." << endl;
 	cin.get();
-	return;
+	return ;
 }

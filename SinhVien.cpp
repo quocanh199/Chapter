@@ -22,39 +22,39 @@ SinhVien::SinhVien(string MaLop,int MaSV,Date NgaySinh,string HoTen,float DiemTB
 void SinhVien::ThemHoSo()
 {
     char Confirm;
-    cout<<"Nhap thong tin sinh vien: "<<endl;
-    
-    cin.ignore();
-    cout<<"Ho ten: ";
-    getline(cin,HoTen);
-    ReName();
-    
-//    cin.ignore();
-    cout<<"Ma sinh vien: ";
-    cin>>MaSV;
+//    try {
+        cout << "Nhap thong tin sinh vien: " << endl;
 
-    cin.ignore();
-    cout<<"Ma lop: ";
-    getline(cin,MaLop);
+        cin.ignore();
+        cout << "Ho ten: ";
+        getline(cin, HoTen);
+        ReName();
 
-//    cin.ignore();
-    cout<<"Ngay sinh:\n";
-    NgaySinh.userInput();
+        cout << "Ma sinh vien: ";
+        cin >> MaSV;
 
-    cin.ignore();
-    cout<<"Diem trung binh: ";
-    cin>>DiemTB;
-    if (DiemTB < 0.0 || DiemTB > 10.0)
-    {
-        do
-        {
-            cin.clear();
-            cin.ignore();
-            cout<<"Diem trung binh khong hop le!\nVui long nhap lai: ";
-            cin>>DiemTB;
+        cin.ignore();
+        cout << "Ma lop: ";
+        getline(cin, MaLop);
+
+        cout << "Ngay sinh:\n";
+        NgaySinh.userInput();
+
+        cin.ignore();
+        cout << "Diem trung binh: ";
+        cin >> DiemTB;
+        if (DiemTB < 0.0 || DiemTB > 10.0) {
+            do {
+                cin.clear();
+                cin.ignore();
+                cout << "Diem trung binh khong hop le!\nVui long nhap lai: ";
+                cin >> DiemTB;
+            } while (DiemTB < 0.0 || DiemTB > 10.0);
         }
-        while (DiemTB < 0.0 || DiemTB > 10.0);
-    }
+//    } catch (exception e ){
+//        cout<<"Invalid argument! Please re-input!"<<endl;
+//        ThemHoSo();
+//    }
     cout<<"Xac nhan thong tin sinh vien? (y/n): ";
     cin>>Confirm;
     if (Confirm == 'y'){
@@ -103,6 +103,9 @@ void SinhVien::setNgaySinh(int month, int day, int year)
 Date SinhVien::getNgaySinh()
 {
 	return NgaySinh;
+}
+string SinhVien::getDateString() {
+    return NgaySinh.asString();
 }
 
 void SinhVien::setDiemTB(float DiemTB)

@@ -28,6 +28,7 @@ class SinhVien
 
         void setNgaySinh(int month,int day,int year);
         Date getNgaySinh();
+        string getDateString();
 
         void setHoTen(string HoTen);
         string getHoTen();

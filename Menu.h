@@ -18,6 +18,17 @@ class Menu
 
         void ReadFile();
 
+        bool Comparison(int a,int b);
+        bool Comparison(string a,string b);
+        bool Comparison(float a,float b);
+
+        void SelectionSort(int keyType);
+        void InsertSort(int keyType);
+        void QuickSort(int keyType, int low, int high);
+        int Partition(int keyType, int low, int high);
+        void MergeSort(int keyType, int l, int r);
+        void Merge(int keyType, int l, int m, int r);
+
         void sapXep();
         int algoSapXep();
 
