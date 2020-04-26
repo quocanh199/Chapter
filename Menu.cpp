@@ -89,8 +89,9 @@ void Menu::hienThi()
 void Menu::InDanhSach()
 {
     char Confirm;
+    if (DSSV.empty())
+        ReadFile();
 
-    ReadFile();
     for (int i=0;i<DSSV.size();i++){
         cout<<DSSV.at(i).toString_SinhVien();
     }
@@ -142,6 +143,15 @@ void Menu::ReadFile() {
     f.close();
 }
 
+void Menu::ExportFile() {
+    fstream f;
+    f.open("SinhVien.txt",ios::out);
+    for (int i=0; i<DSSV.size(); i++){
+        f<<"\n"<<DSSV.at(i).toString_SinhVien();
+    }
+    f.close();
+}
+
 int Menu::chonKhoa()
 {
 	int keyType;
@@ -175,6 +185,10 @@ int Menu::chonKhoa()
 
 void Menu::sapXep()
 {
+    if (DSSV.empty()){
+        ReadFile();
+    }
+
 	int keyType = chonKhoa();
 	cout << "\nDa chon loai: " << keyType << endl;
 	int algoType = algoSapXep();
@@ -192,10 +206,16 @@ void Menu::sapXep()
 	        MergeSort(keyType, 0, DSSV.size()-1);
 	        break;
 	}
-	for (int i=0; i<DSSV.size(); i++)
-	    cout<<DSSV.at(i).toString_SinhVien()<<endl;
-//	cout << baotri << endl;
+
+    ExportFile();
+
+	cout<<"Đã sắp xếp xong, vui lòng in danh sách để xem lại kết quả!"<<endl;
+
+//	for (int i=0; i<DSSV.size(); i++)
+//	    cout<<DSSV.at(i).toString_SinhVien()<<endl;
 }
+
+
 int Menu::algoSapXep()
 {
 	int algoType;
@@ -382,13 +402,11 @@ void Menu::Merge(int keyType, int l, int m, int r) {
     int n1 = m-l+1;
     int n2 = r-m;
     vector<SinhVien> L,R;
-    L.resize(n1);
-    R.resize(n2);
 
     for (i=0; i<n1; i++)
-        L.at(i) = DSSV.at(l+i);
+        L.push_back(DSSV.at(l+i));
     for (j=0; j<n2; j++)
-        R.at(i) = DSSV.at(m+1+j);
+        R.push_back(DSSV.at(m+1+j));
 
     i = j = 0;
     k = l;

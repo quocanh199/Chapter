@@ -60,8 +60,7 @@ void SinhVien::ThemHoSo()
     if (Confirm == 'y'){
         fstream f;
         f.open("SinhVien.txt",ios::app);
-        f<<"\n"<<HoTen<<'|'<<MaLop<<'|'<<MaSV<<'|'<<NgaySinh.asString()<<'|'<<DiemTB;
-
+        f<<"\n"<<toString_SinhVien();
         f.close();
     }
 }

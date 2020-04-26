@@ -17,6 +17,7 @@ class Menu
         void newDanhSach();
 
         void ReadFile();
+        void ExportFile();
 
         bool Comparison(int a,int b);
         bool Comparison(string a,string b);
