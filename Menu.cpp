@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "Date.h"
+#include "Searching.h"
 using namespace std;
 
 Menu::Menu()
@@ -49,10 +50,13 @@ void Menu::hienThi()
                 cout << "\nSap xep: " << endl;
                 sapXep();
                 break;
-            case 4:
+            case 4: {
                 cout << "\nTim kiem: " << endl;
-                timKiem();
+                Searching menuTimKiem(DSSV);
+
+                menuTimKiem.SearchMenu();
                 break;
+            }
             case 5:
                 cout << "\nThong ke: " << endl;
                 thongKe();
@@ -62,6 +66,7 @@ void Menu::hienThi()
                 break;
             default:
                 cout << nhapsai;
+                break;
         }
         if (choiceMenu != 6)
         {
@@ -133,13 +138,12 @@ void Menu::ReadFile() {
         f>>year;
         f.seekg(1,ios::cur);
         NgaySinh.setDate(month,day,year);
-//        cout<<NgaySinh.asString();
 
         f>>DiemTB;
-//        cout<<DiemTB<<endl;
+
         DSSV.push_back(SinhVien(MaLop,MaSV,NgaySinh,HoTen,DiemTB));
     }
-//    cout<<f.eof();
+
     f.close();
 }
 
@@ -484,38 +488,9 @@ void Menu::Merge(int keyType, int l, int m, int r) {
 
 void Menu::timKiem()
 {
-	int keyType = chonKhoa();
-	cout << "\nDa chon loai: " << keyType << endl;
-	int algoType = algoTimKiem();
-	//dat thuat toan o day
-	cout << baotri << endl;
+	Searching menuTimKiem;
+	menuTimKiem.SearchMenu();
 }
-int Menu::algoTimKiem()
-{
-	int algoType;
-	cout << "\nChon thuat toan sap xep: " << endl
-		 << "1. Selection sort" 		  << endl
-		 << "2. Insert sort"			  << endl
-		 << "Chon: ";
-	
-	do {
-		cin >> algoType;
-		switch (algoType) {
-			case 1:
-				cout << "Sequence search!" << endl;
-				return algoType;
-				break;
-			case2:
-				cout << "Insert sort dang chay!" << endl;
-				return algoType;
-				break;
-			default:
-				cout << nhapsai;
-				break;
-		}
-	} while (algoType < 1 || algoType > 2);
-}
-
 void Menu::thongKe()
 {
 	int choice;

@@ -51,10 +51,10 @@ void SinhVien::ThemHoSo()
                 cin >> DiemTB;
             } while (DiemTB < 0.0 || DiemTB > 10.0);
         }
-//    } catch (exception e ){
+/*    } catch (exception e ){
 //        cout<<"Invalid argument! Please re-input!"<<endl;
 //        ThemHoSo();
-//    }
+//    }*/
     cout<<"Xac nhan thong tin sinh vien? (y/n): ";
     cin>>Confirm;
     if (Confirm == 'y'){

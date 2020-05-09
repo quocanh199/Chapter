@@ -7,9 +7,9 @@ class Menu
 {
     private:
         int choiceMenu;
+    public:
         static const string baotri;
         static const string nhapsai;
-    public:
         Menu();
         ~Menu();
         void hienThi();
@@ -33,8 +33,7 @@ class Menu
         void sapXep();
         int algoSapXep();
 
-        void timKiem();				
-		int algoTimKiem();
+        void timKiem();
         
         int chonKhoa();
         void thongKe();
