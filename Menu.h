@@ -17,6 +17,7 @@ class Menu
         void newDanhSach();
 
         void ReadFile();
+        string ChuanHoaTen(string HoTen);
         void ExportFile();
 
         bool Comparison(int a,int b);

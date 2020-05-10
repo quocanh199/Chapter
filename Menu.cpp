@@ -98,7 +98,7 @@ void Menu::InDanhSach()
         ReadFile();
 
     for (int i=0;i<DSSV.size();i++){
-        cout<<DSSV.at(i).toString_SinhVien();
+        cout<<DSSV.at(i).toString_SinhVien()<<endl;
     }
     cout<<"\nLam moi danh sach? (y/n): ";
     cin>>Confirm;
@@ -123,6 +123,7 @@ void Menu::ReadFile() {
     while (!f.eof()){
 
         getline(f,HoTen,'|');
+        HoTen = ChuanHoaTen(HoTen);
 
         getline(f,MaLop,'|');
 
@@ -145,6 +146,18 @@ void Menu::ReadFile() {
     }
 
     f.close();
+}
+string Menu::ChuanHoaTen(string HoTen) {
+    int k, i = 0;
+    string NewString;
+    while (HoTen[i] == '\n') {
+        i++;
+    }
+    while (i < HoTen.length()){
+        NewString.push_back(HoTen[i]);
+        i++;
+    }
+    return NewString;
 }
 
 void Menu::ExportFile() {
