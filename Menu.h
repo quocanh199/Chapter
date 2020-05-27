@@ -1,8 +1,13 @@
 #ifndef MENU_H
 #define MENU_H
+#include "Menu.h"
+#include <fstream>
+#include <string>
 #include <iostream>
-#include<string>
-#include "SinhVien.h"
+#include <vector>
+#include "Date.h"
+#include "Searching.h"
+#include "Statistic.h"
 class Menu
 {
     private:

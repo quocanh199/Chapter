@@ -12,4 +12,4 @@ add_executable(Chapter1
         Menu.cpp
         Menu.h
         SinhVien.cpp
-        SinhVien.h Searching.h Searching.cpp)
+        SinhVien.h Searching.h Searching.cpp Statistic.h Statistic.cpp)

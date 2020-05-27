@@ -1,11 +1,4 @@
 #include "Menu.h"
-#include <fstream>
-#include <string>
-#include <iostream>
-#include <vector>
-#include "Date.h"
-#include "Searching.h"
-using namespace std;
 
 Menu::Menu()
 {
@@ -57,10 +50,13 @@ void Menu::hienThi()
                 menuTimKiem.SearchMenu();
                 break;
             }
-            case 5:
+            case 5: {
                 cout << "\nThong ke: " << endl;
-                thongKe();
+                Statistic menuThongKe(DSSV);
+                menuThongKe.QuantityStat();
+                menuThongKe.QualityStat();
                 break;
+            }
             case 6:
                 thoat();
                 break;
