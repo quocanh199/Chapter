@@ -12,6 +12,7 @@
 #include <string>
 #include "Menu.h"
 #include <iomanip>
+#include <stdlib.h>
 using namespace std;
 
 class Statistic{
